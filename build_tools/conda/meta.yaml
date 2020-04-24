@@ -1,0 +1,49 @@
+{% set version = "1.0.4" %}
+
+package:
+  name: pupil-detectors
+  version: {{ version }}
+
+source:
+  path: ../..
+
+build:
+  number: 3
+
+requirements:
+  build:
+    - {{ compiler('cxx') }}
+
+  host:
+    - python={{ python_version }}
+    - setuptools
+    - wheel
+    - cython
+    - cysignals
+    - numpy={{ numpy_version }}
+    - opencv={{ opencv_version }}
+    - eigen
+    - ceres-solver
+
+  run:
+    - python
+    - numpy
+    - opencv={{ opencv_version }}
+    - ceres-solver
+
+test:
+  source_files:
+    - tests
+  requires:
+    - pytest
+  imports:
+    - pupil_detectors
+  commands:
+    - pytest
+
+about:
+  home: https://github.com/vedb/pupil-detectors
+
+extra:
+  recipe-maintainers:
+    - phausamann

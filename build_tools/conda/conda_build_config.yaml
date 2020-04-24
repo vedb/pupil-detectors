@@ -1,0 +1,9 @@
+python_version:
+  - 3.6
+  - 3.7
+
+opencv_version:
+  - 4.1.2
+
+numpy_version:
+  - 1.15

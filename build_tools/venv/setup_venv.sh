@@ -1,0 +1,22 @@
+#!/bin/bash
+
+set -e
+
+### Set venv directory
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+VENV_DIR="${SCRIPT_DIR}/.venv"
+
+### Install dependencies
+sudo apt-get install -y python3-venv libopencv-dev libeigen3-dev libceres-dev
+
+### Set up venv
+python3 -m venv "${VENV_DIR}"
+
+### Install python dependencies
+source "${VENV_DIR}/bin/activate"
+pip install wheel
+pip install -r "${SCRIPT_DIR}/requirements_build.txt"
+
+### Success!
+echo "Setup successful!"
+echo "Run 'source ${VENV_DIR}/bin/activate' to activate the environment"
