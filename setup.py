@@ -112,24 +112,22 @@ if platform.system() == "Windows":
 
 else:
     # Opencv
-    opencv_include_dirs = [
-        "/usr/local/opt/opencv/include",  # old opencv brew (v3)
-        "/usr/local/opt/opencv@3/include",  # new opencv@3 brew
-        "/usr/local/include/opencv4",  # new opencv brew (v4)
-    ]
     try:
-        opencv_include_dirs += [os.environ['OPENCV_INCLUDE_DIR']]
+        opencv_include_dirs = [os.environ['OPENCV_INCLUDE_DIR']]
     except KeyError:
-        pass
-    opencv_library_dirs = [
-        "/usr/local/opt/opencv/lib",  # old opencv brew (v3)
-        "/usr/local/opt/opencv@3/lib",  # new opencv@3 brew
-        "/usr/local/lib",  # new opencv brew (v4)
-    ]
+        opencv_include_dirs = [
+            "/usr/local/opt/opencv/include",  # old opencv brew (v3)
+            "/usr/local/opt/opencv@3/include",  # new opencv@3 brew
+            "/usr/local/include/opencv4",  # new opencv brew (v4)
+        ]
     try:
-        opencv_library_dirs += [os.environ['OPENCV_LIBRARY_DIR']]
+        opencv_library_dirs = [os.environ['OPENCV_LIBRARY_DIR']]
     except KeyError:
-        pass
+        opencv_library_dirs = [
+            "/usr/local/opt/opencv/lib",  # old opencv brew (v3)
+            "/usr/local/opt/opencv@3/lib",  # new opencv@3 brew
+            "/usr/local/lib",  # new opencv brew (v4)
+        ]
     opencv_libraries = [
         "opencv_core",
         "opencv_highgui",
@@ -158,14 +156,13 @@ else:
     libraries += opencv_libraries
 
     # Eigen
-    include_dirs += [
-        "/usr/local/include/eigen3",
-        "/usr/include/eigen3",
-    ]
     try:
         include_dirs += [os.environ['EIGEN_INCLUDE_DIR']]
     except KeyError:
-        pass
+        include_dirs += [
+            "/usr/local/include/eigen3",
+            "/usr/include/eigen3",
+        ]
 
     # Ceres
     try:
